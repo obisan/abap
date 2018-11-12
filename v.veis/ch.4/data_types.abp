@@ -1,0 +1,162 @@
+*&---------------------------------------------------------------------*
+*& Report z_veis_ch4_ex1
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT z_veis_ch4_ex1.
+
+* build list of clients and vendors
+* client ( last name(25) c )
+
+**********************************************************************
+data: customer_name(25) type c.
+data: vendor_name(25) type c.
+
+**********************************************************************
+
+data: customer_name2(25) type c.
+data: vendor_name2 like customer_name2.
+
+**********************************************************************
+
+types t_name(25) type c.
+data: customer_name3 type t_name.
+data: vendor_name3 type t_name.
+
+**********************************************************************
+
+types flag type c.
+data: address_flag type flag value 'X'.
+
+**********************************************************************
+
+constants: company_name(3) type c value 'SAP'.
+constants: max_counter type i value 9999.
+data: counter type i value max_counter.
+
+**********************************************************************
+
+data: name(25) type c.
+data: city(25).
+data: flag.
+data: single_character value 'Á'.
+
+**********************************************************************
+
+data: customer_id(8) type n.
+customer_id = '1234'.
+write:/ customer_id.
+
+**********************************************************************
+
+data: customer_number type i.
+data: loop_counter type i.
+data: word_length type i value 27.
+
+data: number_of_mosquitos type p.
+
+data: air_bug_price type p decimals 2.
+data: packed_16(16) type p.
+
+**********************************************************************
+
+data: age_of_earth type f value '123E+8'.
+data: f1 type f value 1.
+data: f2 type f value '-11.2'.
+data: f3 type f value '-765E04'.
+
+**********************************************************************
+
+data: today type d.
+today = sy-datum.
+write:/ today.
+write:/.
+write: (10) today.
+write:/.
+write: (20) today.
+write:/.
+write: (08) today.
+write:/.
+
+**********************************************************************
+* last day of prev month
+
+data: ultimo type d.
+ultimo = sy-datum.
+ultimo+6(2) = '01'.
+subtract 1 from ultimo.
+write:/ ultimo.
+
+**********************************************************************
+
+data: t1 type t.
+write:/.
+write: (10) sy-timlo.
+write:/.
+write: (15) sy-timlo.
+write:/.
+
+**********************************************************************
+* structures
+data: begin of customer,
+      id(8) type i,
+      name(25) type c,
+      telephone(12) type c,
+      end of customer.
+
+data: vendor like customer.
+customer-id = '87654321'.
+customer-name = 'John'.
+customer-telephone = '111-111-11-11'.
+move customer to vendor.
+
+constants: begin of path,
+           root(3) type c value 'a:\',
+           home_dir(5) type c value 'home\',
+           end of path.
+
+**********************************************************************
+* inner tables
+
+data: all_customers like customers occurs 100.
+
+types: begin of personal_data,
+       name(25) type c,
+       city(25) type c,
+       street(30) type c,
+       end of personal_data.
+
+data: people type personal_data occurs 300.
+
+
+**********************************************************************
+
+types: begin of address,
+       city(25) type c,
+       street(25) type c,
+       end of address.
+types: begin of person,
+       name(25) type c,
+       address type address,
+       end of person.
+
+data: receiver type person.
+
+receiver-name = 'Smith'.
+receiver-address-city = 'Big City'.
+receiver-address-street = 'Main Street'.
+
+**********************************************************************
+
+types: begin of phone_fax_numbers,
+       country_code(3) type n,
+       area_code(3) type n,
+       number(10) type n,
+       end of PHONE_FAX_NUMBERS.
+types: begin of employee,
+       name(25) type c,
+       phone type phone_fax_numbers occurs 10,
+       fax type phone_fax_numbers occurs 5,
+       end of EMPLOYEE.
+
+data: employees type employee occurs 100.
